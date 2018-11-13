@@ -1,10 +1,48 @@
 # Computer
 
-If you want to use my pretrained classifier, make sure to check out step 2, 8 and 9. Otherwise to train your own object classifier, start at step 1 or 2, depending on wether you want and can use your graphics card to train the classifier.
+If you want to use my pretrained classifier, check out this [how-to](https://github.com/mhaid/rc-car_autonomous/blob/master/README.md).
+Otherwise to train your own object classifier, start at step 1 or 2, depending on wether you want and can use your graphics card to train the classifier.
 
 ### 1. [optional] Install CUDA
 
 .
+
+
+### 2. Download files
+
+Now you have to download the following files:
+
+
+#### 2a. Clone 'mhaid/rc-car_autonomous'-repository
+
+To download this repository as a zip-file click [here](https://github.com/mhaid/rc-car_autonomous/archive/master.zip).
+Unpack the file, move it in your 'C:\'-directory and rename the folder from 'rc-car_autonomous-master' to 'rc-car' to shorten commands and make the following process easier.
+If you rather like to clone, clone the repository into your 'C:\'-drive and check if it's named the same way as stated above.
+```
+C:\> git clone https://github.com/mhaid/rc-car_autonomous.git
+```
+
+
+#### 2b. Clone 'tensorflow/master'-repository
+
+Download the tensorflow-repository [here](https://github.com/tensorflow/models/archive/master.zip), unpack the zip-file, move it to the following location: 'C:\rc-car\computer\' and rename 'modules-master' to 'master'.
+If you clone it, make sure to follow the same steps.
+```
+C:\> git clone https://github.com/tensorflow/models.git
+```
+
+
+#### 2c. Move tmp-files
+
+Now cut all files and folders inside the tmp-directory ('C:\rc-car\computer\tmp') and past them into 'C:\rc-car\computer\models\research\object_detection'.
+
+
+#### 2d. Download 'ssd_mobilenet'-model
+
+"We provide a collection of detection models pre-trained on the COCO dataset, the Kitti dataset, the Open Images dataset, the AVA v2.1 dataset and the iNaturalist Species Detection Dataset. These models can be useful for out-of-the-box inference if you are interested in categories already in those datasets. They are also useful for initializing your models when training on novel datasets." (Quote - [Official model zoo description](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md)).
+We will use the ssd_mobilenet_v1_coco model, because of the limited processor-power of the raspberry pi. This model enables us to detect faster, but more inacurate than other slower models.
+You can download the model from [here](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2018_01_28.tar.gz).
+When the download finished, extract the file with WinRAR or 7Zip and move the extracted folder into 'C:\rc-car\computer\models\research\object_detection'.
 
 
 ### 3. Anaconda Virtual Environment
@@ -160,9 +198,17 @@ Note: Change the 'num_classes'-variable to the number of different objects you w
 ### 7. Train model
 
 ```
-python train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/faster_rcnn_inception_v2_pets.config
+(rc_car) C:\rc-car\computer\models\research\object_detection> python train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/faster_rcnn_inception_v2_pets.config
 ```
 
 
 ### 8. Export graph and move to 'Raspberry Pi'-folder
-.
+
+The last step of this guid is to export the frozen interface graph (.pb-file). Replace the XXXX in the file name 'model.ckpt-XXXX' with the highest numberd .ckpt file in the training folder. Alsoheck you run this command from the 'object-detection'-folder:
+```
+(rc_car) C:\rc-car\computer\models\research\object_detection> python export_inference_graph.py --pipeline_config_path training/ssd_mobilenet_v1_coco.config --input_type image_tensor --trained_checkpoint_prefix training/model.ckpt-XXXX --output_directory inference_graph
+```
+
+Now you are done teaching your object detector. Well done!
+Before jumping back to the other guide, move your inference_graph.pb in the inference_graph folder into 'C:\rc-car\raspberry_pi\inference_graph' and the labelmap.pbtxt located in the training folder to 'C:\rc-car\raspberry_pi\training'.
+Now you a ready to start testing out your object detector in real live!
