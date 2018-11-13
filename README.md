@@ -160,15 +160,31 @@ Now issue the following commands:
 
 ### 6. Generate labelmap and configure training
 
+#### 6a Generate labelmap
+
 Edit 'labelmap.pbtxt' by editing the items. If you got more/less than 5 classes, add more/delete some.
 Make sure the order of the classes in the 'labelmap.pbtxt' and 'generate_tfrecord.py' are the same.
 
+#### 6b Configure training
 
+Navigate to 'C:\rc-car\computer\models\research\object_detection\samples\configs' and copy 'ssd_mobilenet_v1_coco.config' into the training directory inside 'object_detection' ('C:\rc-car\computer\models\research\object_detection\training').
+Open the config file with a text-editor of your choice and make the following changes:
+```
+L. 9   | num_classes: 5
+L. 156 | fine_tune_checkpoint: "D:/rc-car/computer/models/research/object_detection/ssd_mobilenet_v1_coco_2018_01_28/model.ckpt"
+L. 175 | input_path: "D:/rc-car/computer/models/research/object_detection/test.record"
+L. 177 | label_map_path: "D:/rc-car/computer/models/research/object_detection/training/labelmap.pbtxt"
+L. 189 | input_path: "D:/rc-car/computer/models/research/object_detection/train.record"
+L. 191 | label_map_path: "D:/rc-car/computer/models/research/object_detection/training/labelmap.pbtxt"
+```
+Note: Change the 'num_classes'-variable to the number of different objects you want your classifier to detect.
 
 
 ### 7. Train model
 
-.
+```
+python train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/faster_rcnn_inception_v2_pets.config
+```
 
 
 ### 8. Export graph and move to 'Raspberry Pi'-folder
