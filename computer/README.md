@@ -210,5 +210,23 @@ The last step of this guid is to export the frozen interface graph (.pb-file). R
 ```
 
 Now you are done teaching your object detector. Well done!
-Before jumping back to the other guide, move your inference_graph.pb in the inference_graph folder into 'C:\rc-car\raspberry_pi\inference_graph' and the labelmap.pbtxt located in the training folder to 'C:\rc-car\raspberry_pi\training'.
+Move your inference_graph.pb in the inference_graph folder into 'C:\rc-car\raspberry_pi\inference_graph' and the labelmap.pbtxt located in the training folder to 'C:\rc-car\raspberry_pi\training'.
 Now you a ready to start testing out your object detector in real live!
+
+### 9. Move files to raspberry pi
+
+.
+
+
+### 10. Upload Arduin script
+
+.
+
+
+### 11. Test your creation
+
+Now comes the fun part: Finally test out your autonomous rc-car.
+
+Before you start your scripts I will have to provide a short disclaimer:
+I am <b>not</b> responsible for any damage or injuries caused by using the scripts and tools provided in this project. This is just a guidline on how you could setup your autonomous rc-car and therefore I do <b>not</b> guarantee that this project will work or will show the expected results.
+The use of the provided scripts and tools is at your own risk!
