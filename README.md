@@ -5,7 +5,7 @@
 In this README you will find a complete installation-guide on how to use (and train your own) object classifier.
 As this tutorial is primary for Windows, most commands have to be slightly edited to run under Linux.
 Most parts, except CUDA will also exceute well on MacOS by changing the commands slightly as well.
-Later on, you can choose to use my pretrained object detector or to train your own detector.
+Later on you can choose to use my pretrained object detector or to train your own detector.
 
 ## Hardware
 
@@ -20,6 +20,7 @@ For this project you will need the following hardware:
 - 1x Arduino
 - 1x Pi cam 2
 - 2x Ultrasonic sensor ST1099
+- (motor shield) [Do I need it?]()
 
 Also check wether your rc-car got a brushless servomotor demanding more than 5 Volt. In this case you will also need to buy a motorcontroller as the arduino does not provide more than 5V output.
 
@@ -37,7 +38,7 @@ Nevertheless you could try it out for yourself and if it doesn't work just train
 
 ### Create own object classifier (recommended)
 
-Please follow step 1 to 9. When finished, scoll down to section [Setup raspberry pi]().
+Please follow step 1 to 9. When finished, scoll down to section [Setup raspberry pi](https://github.com/mhaid/rc-car_autonomous/blob/master/README.md#setup-raspberry-pi).
 
 #### 1 [optional] Install CUDA
 
