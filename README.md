@@ -2,43 +2,99 @@
 
 ## Work in progress! Please check back later.
 
-In this README you will find a complete installation-guide on how to use (and train your own) object classifier.
+In this README you will find a complete installation-guide on how to build your custom autonomous rc-car. Also we will g through the process of using (and training) your own object classifier.
 As this tutorial is primary for Windows, most commands have to be slightly edited to run under Linux.
-Most parts, except CUDA will also exceute well on MacOS by changing the commands slightly as well.
-Later on you can choose to use my pretrained object detector or to train your own detector.
+Most parts, except CUDA will also execute well on Mac OS by changing the commands slightly as well.
+Later on you can choose to use my pre-trained object detector or to train your own detector.
 
 ## Hardware
 
-Obviously to build your own autonomous rc-car, you have to have a rc-car, which we will modify in the following steps.
-Mostly every size of car will do, but you will have to mount an raspberry pi, an arduino (maybe even with motorcontroller board) and a battery pack with enough output current in or at the outside of the chassis.
-In this project I will use a <b>!TODO</b>.
+In the following steps we I will show you my process on how I modified my rc-car.
 
 ### Required hardware
 
-For this project you will need the following hardware:
-- 1x Raspberry Pi 3
-- 1x Arduino
-- 1x Pi cam 2
-- 2x Ultrasonic sensor ST1099
-- (motor shield) [Do I need it?]()
+Mostly every size of car will do, but you will have to mount an raspberry pi, an arduino (maybe even with motor controller board) and a battery pack with enough output current in or at the outside of the chassis.
+In this project I will use a Nikko Nissan Titan rc-car.
+As most motors of an rc-car big enough to carry the weight will demand more than 5 Volt to function, you will also need a motor controller (also motor shield) for controlling the motor with your raspberry pi.
 
-Also check wether your rc-car got a brushless servomotor demanding more than 5 Volt. In this case you will also need to buy a motorcontroller as the arduino does not provide more than 5V output.
+<p align="center">
+  <img src="documentation/rc_front.JPG">
+  <img src="documentation/rc_right.JPG">
+</p>
+
+For this project you will need the following hardware:
+- 1x Rc-car
+- 1x Raspberry Pi 3
+- 1x Arduino mega
+- 1x Power bank for Raspberry pi & Arduino
+- 1x Battery pack for motor
+- 1x Pi-cam 2
+- 2x Ultrasonic sensor HC-SR04
+- 1x motor shield
+- 2x 330Ω resistor
+- 2x 470Ω resistor
+- 1x small breadboard or 2x circuit board
+
+Also check whether your rc-car got a brushless motor demanding more than 5 Volt. In this case you will also need to buy a motor controller as the Arduino does not provide more than 5V output.
+
+### Modify your car
+
+#### Remove old electronics
+
+Firstly remove the standard circuit board of the car, but be careful not to damage any electronics we need afterwards like the cables to control the motor or the battery back connector.
+
+#### Overview of the new circuit
+
+<p align="center">
+  <img src="documentation/circuit.png">
+</p>
+
+#### Connect Arduino
+
+Connect your motor shield with your Arduino by solder it onto the pins as discribed [here]().
+My setup looks like this:
+<p align="center">
+  <img src="documentation/rc_arduino.JPG">
+</p>
+You can see the Arduino sticking out a bit on the left.
+
+Follow the following steps:
+1. Soder battery pack connector to the shield
+2. Solder servomotor to shield (for steering)
+3. Solder main motor to shield (for acceleration)
+
+##### 1 Battery pack-connector
+
+Now it's time to connect the battery pack-connector to the shield.
+On the picture the battery of the motor is connected on the right side.
+
+##### 2 Servomotor
+
+To controll your rc-car by steering it, connect the two cabels to their corresponding pins on the shield.
+The thin white and red wires connect the servomotor in my case.
+
+##### 3 Main motor
+
+Lastly solder your main motor's plus and minus cable onto the pins. Often there is another wire for a ground connection. Connect this wire to the negative terminal of the battery pack-connector.
+
+Now your done with connecting your Arduino.
+Before fixing your Arduino, make sure there is enough space for the usb-a cable to connect the Arduino with the pi.
 
 
 ## Software
 
-Now we will look at the software required to enable our rc-car to drive autonoumously.
+Now we will look at the software required to enable our rc-car to drive autonomously.
 There are two options for you to choose:
-1. Build your own object classifier to recognise your signs (recommended)
-2. Use my pretrained classifier
+1. Build your own object classifier to recognize your signs (recommended)
+2. Use my pre-trained classifier
 
-Note: If you want to use the pretrained classifier, you will have to consider that I trained it on my signes. Therefore it could detect your signes only partly correct or even do not detect them at all.
+Note: If you want to use the pre-trained classifier, you will have to consider that I trained it on my signs. Therefore it could detect your signs only partly correct or even do not detect them at all.
 Nevertheless you could try it out for yourself and if it doesn't work just train your own classifier.
 
 
 ### Create own object classifier (recommended)
 
-Please follow step 1 to 9. When finished, scoll down to section [Setup raspberry pi](https://github.com/mhaid/rc-car_autonomous/blob/master/README.md#setup-raspberry-pi).
+Please follow step 1 to 9. When finished, scroll down to section [Setup raspberry pi](https://github.com/mhaid/rc-car_autonomous/blob/master/README.md#setup-raspberry-pi).
 
 #### 1 [optional] Install CUDA
 
@@ -84,20 +140,20 @@ When the download finished, extract the file with WinRAR or 7Zip and move the ex
 
 #### 3 Anaconda Virtual Environment
 
-##### 3a Setup Anaconda Environement
+##### 3a Setup Anaconda Environment
 
 <b>Create</b> a new conda <b>environement</b> named 'rc_car'. As tensorflow does currently only support python version 3.5, create the environement with <b>python version 3.5</b>:
 ```
 C:\rc_car> conda create -n rc_car pip python=3.5
 ```
-Now <b>activate</b> the newly created <b>environement</b>:
+Now <b>activate</b> the newly created <b>environment</b>:
 ```
 C:\rc_car> activate rc_car
 ```
 
 ##### 3b Install required packages
 
-Inside the conda environement, install <b>'tensorflow'</b> via pip. If you installed CUDA, install <b>'tensorflow-gpu'</b>:
+Inside the conda environment, install <b>'tensorflow'</b> via pip. If you installed CUDA, install <b>'tensorflow-gpu'</b>:
 ```
 (rc_car) C:\rc_car> pip install --ignore-installed --upgrade tensorflow
 ```
@@ -131,7 +187,7 @@ Note: if you're getting errors while compiling, check out the official [Tensorfl
 
 ##### 3d Set the 'PYTHONPATH'
 
-Now set the 'PYTHONPATH' of the anaconda environement:
+Now set the 'PYTHONPATH' of the anaconda environment:
 ```
 (rc_car) C:\rc_car\computer\models\research> set PYTHONPATH=C:\rc_car\computer\models;C:\rc_car\computer\models\research;C:\rc_car\computer\models\research\slim
 ```
@@ -162,7 +218,7 @@ In both cases, make sure there are not less than 200 images to train your classi
 
 ##### 4a Download images
 
-There are plenty of option to choose. You could eather install a add-on to download pictures directly from <b>google image search</b>, gather your images from a database like [Image Net](http://www.image-net.org/), etc.
+There are plenty of options to choose. You could either install an add-on to download pictures directly from <b>google image search</b>, gather your images from a database like [Image Net](http://www.image-net.org/), etc.
 <p align="center">
   <img src="documentation/image_net.png">
 </p>
@@ -179,15 +235,15 @@ Move all your pictures into the 'images'-directory located in in 'object_detecti
 ```
 (rc_car) C:\rc-car\computer\models\research\object_detection\images>python resize.py
 ```
-After the script finished, you should see a change in width, heiht and size of the files.
+After the script finished, you should see a change in width, height and size of the files.
 Complete this step by moving 20% of the images into the test folder. It's best to choose those randomly, because the object classifier should learn to recognize the images across multiple backgrounds and positions of the sign.
 
 ##### 4d Label images
 
 To label your test and train images, I suggest to use ['LabelImg'](https://github.com/tzutalin/labelImg) by [tzutalin](https://github.com/tzutalin). Click [here](https://tzutalin.github.io/labelImg/) to get directly to the download page.
-After download and installation, open LabelImg, choose the right directory and start drawing the bounding boxes arount the objects.
+After download and installation, open LabelImg, choose the right directory and start drawing the bounding boxes around the objects.
 
-Note: To fasten up the process, activate 'autosave' under the 'edit'-menu entry on the top left of the program. Also you can create a new rectangle by pressing 'w' and navigate by with 'a' and 'd'.
+Note: To fasten up the process, activate 'auto save' under the 'edit'-menu entry on the top left of the program. Also you can create a new rectangle by pressing 'w' and navigate by with 'a' and 'd'.
 
 Finally check if all the bounding boxes meet the minimum size by running the 'checkSize.py' script:
 ```
@@ -241,7 +297,7 @@ Note: Change the 'num_classes'-variable to the number of different objects you w
 
 #### 8 Export graph and move to 'Raspberry Pi'-folder
 
-The last step of this guid is to export the frozen interface graph (.pb-file). Replace the XXXX in the file name 'model.ckpt-XXXX' with the highest numberd .ckpt file in the training folder. Alsoheck you run this command from the 'object-detection'-folder:
+The last step of this guide is to export the frozen interface graph (.pb-file). Replace the XXXX in the file name 'model.ckpt-XXXX' with the highest numbered .ckpt file in the training folder. Also check you run this command from the 'object-detection'-folder:
 ```
 (rc_car) C:\rc-car\computer\models\research\object_detection> python export_inference_graph.py --pipeline_config_path training/ssd_mobilenet_v1_coco.config --input_type image_tensor --trained_checkpoint_prefix training/model.ckpt-XXXX --output_directory inference_graph
 ```
@@ -250,8 +306,10 @@ Now you are done teaching your object detector. Well done!
 Move your inference_graph.pb in the inference_graph folder into 'C:\rc-car\raspberry_pi\inference_graph' and the labelmap.pbtxt located in the training folder to 'C:\rc-car\raspberry_pi\training'.
 Now you a ready to start testing out your object detector in real live!
 
+Please scroll down to section [Setup raspberry pi](https://github.com/mhaid/rc-car_autonomous/blob/master/README.md#setup-raspberry-pi) to continue.
 
-### Use pretrained model
+
+### Use pre-trained model
 
 #### 1 Download files
 
@@ -276,9 +334,9 @@ C:\> git clone https://github.com/mhaid/rc-car_autonomous.git
 
 .
 
-### Setup arduino
+### Setup Arduino
 
-#### 1 Upload Arduin script
+#### 1 Upload Arduino script
 
 .
 
@@ -288,5 +346,5 @@ C:\> git clone https://github.com/mhaid/rc-car_autonomous.git
 Now comes the fun part: Finally test out your autonomous rc-car.
 
 Before you start your scripts I will have to provide a short disclaimer:
-I am <b>not</b> responsible for any damage or injuries caused by using the scripts and tools provided in this project. This is just a guidline on how you could setup your autonomous rc-car and therefore I do <b>not</b> guarantee that this project will work or will show the expected results.
+I am <b>not</b> responsible for any damage or injuries caused by using the scripts and tools provided in this project. This is just a guideline on how you could setup your autonomous rc-car and therefore I do <b>not</b> guarantee that this project will work or will show the expected results.
 The use of the provided scripts and tools is at your own risk!
