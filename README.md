@@ -58,11 +58,6 @@ My setup looks like this:
 </p>
 You can see the Arduino sticking out a bit on the left.
 
-Follow the following steps:
-1. Soder battery pack connector to the shield
-2. Solder servomotor to shield (for steering)
-3. Solder main motor to shield (for acceleration)
-
 ##### 1 Battery pack-connector
 
 Now it's time to connect the battery pack-connector to the shield.
