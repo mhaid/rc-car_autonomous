@@ -1,0 +1,20 @@
+item {
+  id: 1
+  name: 'fussgaenger'
+}
+item {
+  id: 2
+  name: 'baustelle'
+}
+item {
+  id: 3
+  name: 'fuenfzig'
+}
+item {
+  id: 4
+  name: 'dreissig'
+}
+item {
+  id: 5
+  name: 'Rechts-vor-links'
+}
