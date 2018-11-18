@@ -49,7 +49,7 @@ Firstly remove the standard circuit board of the car, but be careful not to dama
 
 #### Connect Arduino
 
-Connect your motor shield with your Arduino by solder it onto the pins as discribed [here](http://www.gunook.com/anleitung-fur-monster-motor-shield-vnh2sp30/).
+Connect your motor shield with your Arduino by solder it onto the pins as described [here](http://www.gunook.com/anleitung-fur-monster-motor-shield-vnh2sp30/).
 My setup looks like this:
 <p align="center">
   <img src="documentation/rc_arduino.JPG">
@@ -62,15 +62,15 @@ On the picture the battery of the motor is connected on the right side.
 
 ##### 2 Servomotor
 
-To enable steering, connect the two cabels to their corresponding pins on the shield.
+To enable steering, connect the two cables to their corresponding pins on the shield.
 The thin white and red wires connect the servomotor in my case. 
 
 ##### 3 Main motor
 
-Now solder your main motor's plus and minus cable onto the pins. Often there is another wire for a ground connection. Connect the groundwire to the negative terminal of the battery pack-connector.
+Now solder your main motors plus and minus cable onto the pins. Often there is another wire for a ground connection. Connect the ground wire to the negative terminal of the battery pack-connector.
 
-Now your done with connecting your Arduino.
-Before mounting your Arduino to the car, make sure there is enough space for the usb-a to usb-b cable to connect the Arduino with the pi.
+Now you’re done with connecting your Arduino.
+Before mounting your Arduino to the car, make sure there is enough space for the USB-A to USB -B cable to connect the Arduino with the pi.
 
 #### Connect raspberry pi
 
@@ -87,7 +87,7 @@ Before mounting your Arduino to the car, make sure there is enough space for the
 
 ##### Connect Arduino and Raspberry pi
 
-Connect the Arduino with the pi's usb-port, by using the USB-A to USB-B cable shiped with the Arduino.
+Connect the Arduino with the pi's USB-port, by using the USB-A to USB-B cable shipped with the Arduino.
 We need this connection to power the Arduino and send commands over the USB interface.
 
 
@@ -128,7 +128,7 @@ C:\> git clone https://github.com/mhaid/rc-car_autonomous.git
 
 ##### 2b Clone 'tensorflow/master'-repository
 
-Download the tensorflow-repository [here](https://github.com/tensorflow/models/archive/master.zip), unpack the zip-file, move it to the following location: 'C:\rc-car\computer\' and rename 'modules-master' to 'modules'.
+Download the TensorFlow-repository [here](https://github.com/tensorflow/models/archive/master.zip), unpack the zip-file, move it to the following location: 'C:\rc-car\computer\' and rename 'modules-master' to 'modules'.
 If you clone it, make sure to follow the same steps.
 ```
 C:\> git clone https://github.com/tensorflow/models.git
@@ -143,7 +143,7 @@ Now cut all files and folders inside the tmp-directory ('C:\rc-car\computer\tmp'
 ##### 2d Download 'ssd_mobilenet'-model
 
 "We provide a collection of detection models pre-trained on the COCO dataset, the Kitti dataset, the Open Images dataset, the AVA v2.1 dataset and the iNaturalist Species Detection Dataset. These models can be useful for out-of-the-box inference if you are interested in categories already in those datasets. They are also useful for initializing your models when training on novel datasets." ([Official model zoo description](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md)).
-Because of the limited processor-power of the raspberry pi, we will use the ssd_mobilenet_v1_coco model. This model enables us to detect faster, but more inacurate than most other models.
+Because of the limited processor-power of the raspberry pi, we will use the ssd_mobilenet_v1_coco model. This model enables us to detect faster, but more inaccurate than most other models.
 You can download the model from [here](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2018_01_28.tar.gz).
 When the download finished, extract the file with WinRAR or 7Zip and move the extracted folder into 'C:\rc-car\computer\models\research\object_detection'.
 
@@ -152,18 +152,18 @@ When the download finished, extract the file with WinRAR or 7Zip and move the ex
 
 ##### 3a Setup Anaconda Environment
 
-<b>Create</b> a new Anaconda <b>environement</b> named 'rc-car'. As tensorflow does currently only support python version 3.5, create the environement with <b>python version 3.5</b>:
+<b>Create</b> a new Anaconda <b>environment</b> named 'rc-car'. As TensorFlow does currently only support python version 3.5, create the environment with <b>python version 3.5</b>:
 ```
 C:\rc-car> conda create -n rc-car pip python=3.5
 ```
-Now <b>activate</b> the newly created <b>environment</b> to run the commands inside the environement:
+Now <b>activate</b> the newly created <b>environment</b> to run the commands inside the environment:
 ```
 C:\rc-car> activate rc-car
 ```
 
 ##### 3b Install required packages
 
-Inside the conda environment, install <b>'tensorflow'</b> via pip. If you installed CUDA, install <b>'tensorflow-gpu'</b>:
+Inside the conda environment, install <b>'TensorFlow'</b> via pip. If you installed CUDA, install <b>'tensorflow-gpu'</b>:
 ```
 (rc-car) C:\rc-car> pip install --ignore-installed --upgrade tensorflow
 ```
@@ -193,7 +193,7 @@ Navigate into the 'research' folder located at 'C:\rc-car\computer\models\resear
 (rc-car) C:\rc-car\computer\models\research> for %f in (.\object_detection\protos\*.proto) do protoc --python_out=. %f
 ```
 Now you should find a new '.py' file for every '.proto' file in the 'proto'-folder
-Note: if you're getting errors while compiling, check out the official [Tensorflow manual](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md#protobuf-compilation).
+Note: if you're getting errors while compiling, check out the official [TensorFlow manual](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md#protobuf-compilation).
 
 ##### 3d Set the 'PYTHONPATH'
 
@@ -213,7 +213,7 @@ Run the following script:
 
 ##### 3f Verify installation
 
-To verify your installation, run the jupiter notebook inside the 'object_detection'-folder:
+To verify your installation, run the Jupiter notebook inside the 'object_detection'-folder:
 ```
 (rc-car) C:\rc-car\computer\models\research\object_detection> jupyter notebook object_detection_tutorial.ipynb
 ```
@@ -231,7 +231,7 @@ In both cases, make sure there are not less than 200 images to train your classi
 There are plenty of options to choose. You could either install an add-on to download pictures directly from <b>google image search</b>, gather your images from a database like [Image Net](http://www.image-net.org/), etc.<br>
 For Firefox, you can install the ['Google Images Downloader' Add-on](https://addons.mozilla.org/de/firefox/addon/google-images-downloader/); for Chrome the ['Canvas' Add-on](https://chrome.google.com/webstore/detail/canvas-powerful-google-im/bfncneeboblpajkpienladgdmfdkpefg).
 <p align="center">
-  <img src="documentation/image_net.png">
+  <img src="docs/image_net.png">
 </p>
 After you downloaded enough pictures, go to step 4c.
 
@@ -242,12 +242,13 @@ I for example took 219 pictures but will increase the amount in the future.
 
 ##### 4c Resize images
 
-Move all your pictures into the 'images'-directory located in in 'object_detection'. Now run the "resize.py".script:
+Move all your pictures into the 'images'-directory located in in 'object_detection\training_input'. Now run the "resize.py".script:
 ```
-(rc-car) C:\rc-car\computer\models\research\object_detection\images>python resize.py
+(rc-car) C:\rc-car\computer\models\research\object_detection\training_input\images>python resize.py
 ```
 After the script finished, you should see a change in width, height and size of the files.
 Complete this step by moving 20% of the images into the test folder. It's best to choose those randomly, because the object classifier should learn to recognize the images across multiple backgrounds and positions of the signs.
+Move the other 80% into the train directory.
 
 ##### 4d Label images
 
@@ -258,22 +259,23 @@ Note: To fasten up the process, activate 'auto save' under the 'edit'-menu entry
 
 Finally check if all the bounding boxes meet the minimum size by running the 'checkSize.py' script:
 ```
-(rc-car) C:\rc-car\computer\models\research\object_detection\images>python checkSize.py --move
+(rc-car) C:\rc-car\computer\models\research\object_detection\training_input\images>python checkSize.py --move
 ```
-All images and their corresponding xml-files which contain one or more bounding boxes smaller than 32px x 32px will be moved to the 'wrong_data'-folder inside 'test' or  'training'.
+All images and their corresponding xml-files which contain one or more bounding boxes smaller than 32px x 32px will be moved to the 'wrong_data'-folder inside the 'test' or  'training' folder.
 
 
 #### 5 Generate training data
 
+Redirect to the 'training_input' folder and run the following command to convert the xml-files to usable csv-files.
 ```
-(rc-car) C:\rc-car\computer\models\research\object_detection> python xml_to_csv.py
+(rc-car) C:\rc-car\computer\models\research\object_detection\training_input> python xml_to_csv.py
 ```
 
 Replace the label map section in 'generate_tfrecord.py' with your own classes.
 Now issue the following commands:
 ```
-(rc-car) C:\rc-car\computer\models\research\object_detection> python generate_tfrecord.py --csv_input=images\train_labels.csv --image_dir=images\train --output_path=train.record
-(rc-car) C:\rc-car\computer\models\research\object_detection> python generate_tfrecord.py --csv_input=images\test_labels.csv --image_dir=images\test --output_path=test.record
+(rc-car) C:\rc-car\computer\models\research\object_detection\training_input> python generate_tfrecord.py --csv_input=images\train_labels.csv --image_dir=images\train --output_path=data\train.record
+(rc-car) C:\rc-car\computer\models\research\object_detection\training_input> python generate_tfrecord.py --csv_input=images\test_labels.csv --image_dir=images\test --output_path=data\test.record
 ```
 
 
@@ -282,19 +284,19 @@ Now issue the following commands:
 ##### 6a Generate label map
 
 Edit 'label_map.pbtxt' by editing the items. If you got more/less than 5 classes, add more/delete some.
-Laso make sure the order of the classes in the 'label_map.pbtxt' and 'generate_tfrecord.py' match up.
+Also make sure the order of the classes in the 'label_map.pbtxt' and 'generate_tfrecord.py' match up.
 
 ##### 6b Configure training
 
-Navigate to 'C:\rc-car\computer\models\research\object_detection\samples\configs' and copy 'ssd_mobilenet_v1_coco.config' into the training directory inside 'object_detection' ('C:\rc-car\computer\models\research\object_detection\training').
+Navigate to 'C:\rc-car\computer\models\research\object_detection\samples\configs' and copy 'ssd_mobilenet_v1_coco.config' into the 'training_input' directory inside 'object_detection' ('C:\rc-car\computer\models\research\object_detection\training_input').
 Open the config file with a text-editor of your choice and make the following changes:
 ```
 L. 9   | num_classes: 5
 L. 156 | fine_tune_checkpoint: "D:/rc-car/computer/models/research/object_detection/ssd_mobilenet_v1_coco_2018_01_28/model.ckpt"
-L. 175 | input_path: "D:/rc-car/computer/models/research/object_detection/test.record"
-L. 177 | label_map_path: "D:/rc-car/computer/models/research/object_detection/training/label_map.pbtxt"
-L. 189 | input_path: "D:/rc-car/computer/models/research/object_detection/train.record"
-L. 191 | label_map_path: "D:/rc-car/computer/models/research/object_detection/training/label_map.pbtxt"
+L. 175 | input_path: "D:/rc-car/computer/models/research/object_detection/train_input/data/test.record"
+L. 177 | label_map_path: "D:/rc-car/computer/models/research/object_detection/train_input/label_map.pbtxt"
+L. 189 | input_path: "D:/rc-car/computer/models/research/object_detection/train_input/data/train.record"
+L. 191 | label_map_path: "D:/rc-car/computer/models/research/object_detection/train_input/label_map.pbtxt"
 ```
 Note: Change the 'num_classes'-variable to the number of different objects you want your classifier to detect.
 
@@ -302,7 +304,7 @@ Note: Change the 'num_classes'-variable to the number of different objects you w
 #### 7 Train model
 
 ```
-(rc-car) C:\rc-car\computer\models\research\object_detection> python train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/faster_rcnn_inception_v2_pets.config
+(rc-car) C:\rc-car\computer\models\research\object_detection> python train.py --logtostderr --train_dir=training_output/ --pipeline_config_path=training_input/ssd_mobilenet_v1_coco.config
 ```
 
 
@@ -310,11 +312,11 @@ Note: Change the 'num_classes'-variable to the number of different objects you w
 
 The last step of this guide is to export the frozen interface graph (.pb-file). Replace the XXXX in the file name 'model.ckpt-XXXX' with the highest numbered .ckpt file in the training folder. Also check you run this command from the 'object-detection'-folder:
 ```
-(rc-car) C:\rc-car\computer\models\research\object_detection> python export_inference_graph.py --pipeline_config_path training/ssd_mobilenet_v1_coco.config --input_type image_tensor --trained_checkpoint_prefix training/model.ckpt-XXXX --output_directory inference_graph
+(rc-car) C:\rc-car\computer\models\research\object_detection> python export_inference_graph.py --pipeline_config_path training_input/ssd_mobilenet_v1_coco.config --input_type image_tensor --trained_checkpoint_prefix training_output/model.ckpt-XXXX --output_directory training_output
 ```
 
 Now you are done teaching your object detector. Well done!
-Move your inference_graph.pb in the inference_graph folder into 'C:\rc-car\raspberry_pi\inference_graph' and the label_map.pbtxt located in the training folder to 'C:\rc-car\raspberry_pi\training'.
+Move your 'frozen_inference_graph.pb' in the 'training_output' folder to 'C:\rc-car\raspberry_pi\detector' and the 'label_map.pbtxt' located in the 'training_input' folder to 'C:\rc-car\raspberry_pi\detector'.
 Now you a ready to start testing out your object detector in real life!
 
 Please scroll down to section [Setup raspberry pi](https://github.com/mhaid/rc-car_autonomous/blob/master/README.md#setup-raspberry-pi) to continue.
@@ -335,13 +337,121 @@ If you rather like to clone, clone the repository into your 'C:\\'-drive and che
 C:\> git clone https://github.com/mhaid/rc-car_autonomous.git
 ```
 
-### Setup raspberry pi
+### Setup Raspberry Pi
 
-#### 1 Setup raspberry pi
+#### 1 Download files
 
-.
+##### Download rc-car repository
 
-#### 2 Move files to raspberry pi
+Navigate into the '/home/pi/' folder and clone the 'mhaid/rc-car_autonomous' repository:
+```
+cd /home/pi/
+git clone https://github.com/mhaid/rc-car_autonomous.git
+```
+Rename the folder to 'rc-car':
+```
+mv /home/pi/rc-car_autonomous /home/pi/rc-car
+```
+
+##### Download TensorFlow models
+
+cd into the 'raspberry_pi' folder in '/home/pi/rc-car/raspberry_pi/' and clone the models folder:
+```
+cd /home/pi/rc-car/raspberry_pi/
+git clone --recurse-submodules https://github.com/tensorflow/models.git
+```
+
+#### 1 Setup Raspberry Pi
+
+Connect your raspberry pi to a screen via HDMI and open a new terminal or use SSH (I recommend using putty) to connect remotely.
+
+##### Update Raspberry Pi
+
+Firstly, your Raspberry Pi has to be up-to-date. Execute this command:
+
+```
+sudo apt-get update
+sudo apt-get dist-upgrade
+```
+Note: We are using 'dist-upgrade' instead of 'upgrade' to resolve any dependency errors. By just using 'upgrade', the pi would not install any new or remove any existing packages and therefore does not resolve dependency issues.<br>
+
+Depending on when you lastly updated the Raspberry, updating can take a minute and a couple of hour.
+
+##### Install TensorFlow for ARM
+
+Now we need to install TensorFlow.<br>
+Make sure the following packages are installed by running the following commands:
+```
+sudo apt install python3-dev python3-pip
+sudo apt install libatlas-base-dev
+```
+
+When done, install TensorFlow with this command and verify the installation:
+```
+pip3 install --upgrade tensorflow
+python3 -c "import tensorflow as tf; tf.enable_eager_execution(); print(tf.reduce_sum(tf.random_normal([1000, 1000])))"
+```
+
+##### Install required libraries
+
+```
+sudo apt-get install protobuf-compiler python-pil python-lxml python-tk
+pip3 install Cython
+pip3 install contextlib2
+pip3 install jupyter
+pip3 install matplotlib
+pip3 install opencv-python
+```
+Note: If you experience any errors installing protobuf, try the [manual installation](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md#Manual-protobuf-compiler-installation-and-usage).
+
+##### Compile protobuf
+
+From /home/pi/rc-car/raspberry_pi/models/research/ execute the following command:
+```
+protoc object_detection/protos/*.proto --python_out=.
+```
+Now you should find a new '.py' file for every '.proto' file in the 'proto'-folder
+Note: if you're getting errors while compiling, check out the official [TensorFlow manual](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md#protobuf-compilation).
+
+##### Set 'PYTHONPATH'
+
+To set the 'PYTHONPATH' run the following command from the '/home/pi/rc-car/models/research/' directory:
+```
+pi@raspberrypi:~/rc-car/models/research/ $ export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
+```
+
+If you want to automatically set the path in every instance of the terminal, we need to edit the .bashrc file:
+```
+sudo nano ~/.bashrc
+```
+Move to the bottom of the file and add this last line:
+```
+export PYTHONPATH=$PYTHONPATH:/home/pi/rc-car/models/research:/home/pi/rc-car/models/research/slim
+```
+
+##### Download SSDLite-MobileNet
+
+Now we need to download the detection model from [TensorFlows detection model zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md).
+Navigate into the 'object_detection' folder (/home/pi/tensorflow1/models/research/object_detection) and run these commands to download and extract the package:
+
+```
+wget http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2018_01_28.tar.gz
+tar -xzf ssd_mobilenet_v1_coco_2018_01_28.tar.gz
+```
+
+##### Enable Camera Interface
+
+To enable to Camera Interface graphically, open the Raspian-menu on the top left, click on 'Preferences' and 'Raspberry Pi Configuration'. In the new 'Raspberry Pi Configuration' window, switch to the 'Interfaces' tab and check the toggle button 'Enabled' next to the camera.
+
+For everyone using SSH or just wanting to use the terminal, execute the raspi-config command:
+```
+sudo raspi-config
+```
+Now choose the '5. Interfaces' menu and 'P1. Camera'.
+Choose 'Yes' if you get asked whether you want to enable the Camera Interface and 'No' if it asks to disable it.
+Now hit 'Finish' and you’re done!
+
+#### 2 Move files to Raspberry Pi
 
 .
 
