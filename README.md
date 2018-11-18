@@ -337,7 +337,9 @@ If you rather like to clone, clone the repository into your 'C:\\'-drive and che
 C:\> git clone https://github.com/mhaid/rc-car_autonomous.git
 ```
 
-### Setup Raspberry Pi
+### Raspberry Pi
+
+Connect your raspberry pi to a screen via HDMI and open a new terminal or use SSH (I recommend using putty) to connect remotely.
 
 #### 1 Download files
 
@@ -361,9 +363,13 @@ cd /home/pi/rc-car/raspberry_pi/
 git clone --recurse-submodules https://github.com/tensorflow/models.git
 ```
 
-#### 1 Setup Raspberry Pi
+Now move all files and folders from '/home/pi/rc-car/raspberry_pi/tmp' to /home/pi/rc-car/raspberry_pi/models/research/object_detection':
+```
+pi@raspberrypi:~/rc-car/raspberry_pi $ mv tmp/detector models/research/object_detection/detector
+pi@raspberrypi:~/rc-car/raspberry_pi $ mv tmp/camera_od_client.py models/research/object_detection
+```
 
-Connect your raspberry pi to a screen via HDMI and open a new terminal or use SSH (I recommend using putty) to connect remotely.
+#### 2 Setup Raspberry Pi
 
 ##### Update Raspberry Pi
 
@@ -415,9 +421,9 @@ Note: if you're getting errors while compiling, check out the official [TensorFl
 
 ##### Set 'PYTHONPATH'
 
-To set the 'PYTHONPATH' run the following command from the '/home/pi/rc-car/models/research/' directory:
+To set the 'PYTHONPATH' run the following command from the '/home/pi/rc-car/raspberry_pi/models/research/' directory:
 ```
-pi@raspberrypi:~/rc-car/models/research/ $ export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
+pi@raspberrypi:~/rc-car/raspberry_pi/models/research/ $ export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
 ```
 
 If you want to automatically set the path in every instance of the terminal, we need to edit the .bashrc file:
@@ -426,8 +432,17 @@ sudo nano ~/.bashrc
 ```
 Move to the bottom of the file and add this last line:
 ```
-export PYTHONPATH=$PYTHONPATH:/home/pi/rc-car/models/research:/home/pi/rc-car/models/research/slim
+export PYTHONPATH=$PYTHONPATH:/home/pi/rc-car/raspberry_pi/models/research:/home/pi/rc-car/raspberry_pi/models/research/slim
 ```
+
+##### Run setup.py
+
+Navigate into the 'research' folder (/home/pi/rc-car/raspberry_pi/models/research/) and run these commands:
+```
+python3 setup.py build
+python3 setup.py test
+```
+Note: If you get any errors because of the 'echo' command, you have to change those lines to be compatile to python3
 
 ##### Download SSDLite-MobileNet
 
@@ -451,9 +466,16 @@ Now choose the '5. Interfaces' menu and 'P1. Camera'.
 Choose 'Yes' if you get asked whether you want to enable the Camera Interface and 'No' if it asks to disable it.
 Now hit 'Finish' and you’re done!
 
-#### 2 Move files to Raspberry Pi
+#### Test object detector
 
-.
+
+```
+pi@raspberrypi:~/rc-car/raspberry_pi/models/research/object_detector $ python3 builders/model_builder_test.py
+```
+
+```
+pi@raspberrypi:~/rc-car/raspberry_pi/models/research/object_detector $ python3 camera_od_client.py
+```
 
 ### Setup Arduino
 
