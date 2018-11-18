@@ -18,8 +18,8 @@ In this project I will use a Nikko Nissan Titan rc-car.
 As most motors of an rc-car big enough to carry the weight will demand more than 5 Volt to function, you will also need a motor controller (also motor shield) for controlling the motor with your raspberry pi.
 
 <p align="center">
-  <img src="documentation/rc_front.JPG">
-  <img src="documentation/rc_right.JPG">
+  <img src="docs/rc_front.JPG">
+  <img src="docs/rc_right.JPG">
 </p>
 
 For this project you will need the following hardware:
@@ -44,7 +44,7 @@ Firstly remove the standard circuit board of the car, but be careful not to dama
 #### Overview of the new circuit
 
 <p align="center">
-  <img src="documentation/circuit.png">
+  <img src="docs/circuit.png">
 </p>
 
 #### Connect Arduino
