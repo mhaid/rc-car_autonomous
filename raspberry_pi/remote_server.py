@@ -32,19 +32,19 @@ class ControlStreamingTest(object):
     def streaming(self):
 
         try:
-            print "Verbindung von: ", self.client_address
+            print("Verbindung von: ", self.client_address)
 
             while True:
                 control_data = str(self.connection.recv(1024))
-                print "Empfangen: %s" % control_data
+                print("Empfangen: %s" % control_data)
                 control_data_int = int(control_data);
-                self.ser.write(chr(control_data_int));
+                self.ser.write(chr(control_data_int).encode());
         except:
-            print "Fehler!"
-            self.ser.write(chr(0));
+            print("Fehler!")
+            self.ser.write(chr(0).encode());
             
         finally:
-            self.ser.write(chr(0));
+            self.ser.write(chr(0).encode());
             self.connection.close()
             self.server_socket.close()
             self.send_inst = False

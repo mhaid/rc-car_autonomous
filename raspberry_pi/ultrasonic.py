@@ -80,35 +80,35 @@ try:
         distance2 = measure2()
         if distance < 40 and times == False:
             times = True;
-            print "Warnung: %.2f cm" % distance + " | %.2f cm" % distance2;
+            print("Warnung: %.2f cm" % distance + " | %.2f cm" % distance2)
         elif distance2 < 40 and times == False:
             times = True;
-            print "Warnung: %.2f cm" % distance + " | %.2f cm" % distance2;
+            print("Warnung: %.2f cm" % distance + " | %.2f cm" % distance2)
         elif distance < 40 or distance2 < 40 and times == True:
             if enabled == True:
                 enabled = False;
                 if distance < 40:
-                    ser.write(chr(15));
-                    print "Sending..."
+                    ser.write(chr(15).encode());
+                    print("Sending...")
                 elif distance2 < 40:
-                    ser.write(chr(18));
-                    print "Sending..."
-            print "Autonomes Stoppen eingeleitet: %.2f cm" % distance + " | %.2f cm" % distance2;
+                    ser.write(chr(18).encode());
+                    print("Sending...")
+            print("Autonomes Stoppen eingeleitet: %.2f cm" % distance + " | %.2f cm" % distance2)
         elif distance < 40 and distance2 < 40 and times == True:
             if enabled == True:
-                ser.write(chr(15));
-                ser.write(chr(18));
-                print "Sending..."
+                ser.write(chr(15).encode());
+                ser.write(chr(18).encode());
+                print("Sending...")
                 enabled = False;
-            print "Autonomes Stoppen eingeleitet: %.2f cm" % distance + " | %.2f cm" % distance2;
+            print("Autonomes Stoppen eingeleitet: %.2f cm" % distance + " | %.2f cm" % distance2)
         elif distance > 39 and distance2 >39:
             if times == True:
                 times = False;
                 enabled = True;
-                ser.write(chr(16));
-                ser.write(chr(19));
-                print "Sending..."
-            print "Distanz: %.2f cm" % distance + " | %.2f cm" % distance2
+                ser.write(chr(16).encode());
+                ser.write(chr(19).encode());
+                print("Sending...")
+            print("Distanz: %.2f cm" % distance + " | %.2f cm" % distance2)
         time.sleep(0.3)
 
 finally:
